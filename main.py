@@ -37,7 +37,7 @@ def converter_txt_para_json(caminho_txt, caminho_json):
         return None
 
 class DeepseekAssistentVirtual:
-    def __init__(self, model_name="deepseek-coder:6.7b-instruct", temperatura=0.7, manual_path=None):
+    def __init__(self, model_name="deepseek-coder", temperatura=0.7, manual_path=None):
         self.model_name = model_name
         self.temperatura = temperatura
         self.historico = []
@@ -197,7 +197,7 @@ class DeepseekAssistentVirtual:
             print(f"\nErro ao salvar histórico: {str(e)}")
 
 def main():
-    modelo = "deepseek-coder:6.7b-instruct"
+    modelo = "deepseek-coder"  # Aqui definimos o modelo para 'deepseek-coder'
     manual_path = "./manual_convertido.json"  # Caminho fixo para o arquivo manual
 
     if len(sys.argv) > 1:

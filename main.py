@@ -5,7 +5,7 @@ import json
 import time
 import readline  # Para melhor suporte à entrada de texto no terminal
 
-def converter_txt_para_json(caminho_txt, caminho_json):  # NOVO
+def converter_txt_para_json(caminho_txt, caminho_json):
     """Converte um arquivo .txt simples em um JSON estruturado por seções."""
     try:
         with open(caminho_txt, 'r', encoding='utf-8') as f:
@@ -37,7 +37,7 @@ def converter_txt_para_json(caminho_txt, caminho_json):  # NOVO
         return None
 
 class DeepseekAssistentVirtual:
-    def __init__(self, model_name="deepseek:1.5b", temperatura=0.7, manual_path=None):
+    def __init__(self, model_name="deepseek-coder:6.7b-instruct", temperatura=0.7, manual_path=None):
         self.model_name = model_name
         self.temperatura = temperatura
         self.historico = []
@@ -197,7 +197,7 @@ class DeepseekAssistentVirtual:
             print(f"\nErro ao salvar histórico: {str(e)}")
 
 def main():
-    modelo = "deepseek:1.5b"
+    modelo = "deepseek-coder:6.7b-instruct"
     manual_path = "./manual_convertido.json"  # Caminho fixo para o arquivo manual
 
     if len(sys.argv) > 1:
@@ -206,8 +206,8 @@ def main():
     if len(sys.argv) > 2:
         manual_path = sys.argv[2]
     else:
-        if manual_path.endswith(".txt"):  # Se for um arquivo .txt
-            manual_json = manual_path.replace(".txt", ".json")  # Gera o nome para o arquivo JSON
+        if manual_path.endswith(".txt"):
+            manual_json = manual_path.replace(".txt", ".json")
             manual_path = converter_txt_para_json(manual_path, manual_json)
 
     if not os.path.exists(manual_path):

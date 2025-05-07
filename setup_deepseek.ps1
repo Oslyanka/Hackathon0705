@@ -46,8 +46,8 @@ if (-NOT (Test-Path $ollamaPath)) {
         Write-Host "Serviço Ollama já está em execução." -ForegroundColor Green
     }
     
-    # Verificar se o modelo Deepseek está disponível
-    $modelName = "deepseek:1.5b"
+    # Verificar se o modelo Deepseek-Coder está disponível
+    $modelName = "deepseek-coder:6.7b-instruct"
     Write-Host "Verificando se o modelo $modelName está disponível..." -ForegroundColor Yellow
     
     $tagsJson = Invoke-RestMethod -Uri "http://localhost:11434/api/tags"
@@ -59,7 +59,7 @@ if (-NOT (Test-Path $ollamaPath)) {
             break
         }
     }
-    
+
     if (-NOT $modelExists) {
         Write-Host "Baixando o modelo $modelName. Isso pode levar alguns minutos..." -ForegroundColor Yellow
         & $ollamaPath pull $modelName
@@ -70,16 +70,16 @@ if (-NOT (Test-Path $ollamaPath)) {
 }
 
 # Passo 4: Criar ou verificar o script do assistente virtual
-$assistentePath = Join-Path (Get-Location) "assistente_virtual_deepseek.py"
+$assistentePath = Join-Path (Get-Location) "main.py"
 
 if (-NOT (Test-Path $assistentePath)) {
     Write-Host "O script do assistente virtual não foi encontrado." -ForegroundColor Yellow
-    Write-Host "Será necessário criar o arquivo assistente_virtual_deepseek.py." -ForegroundColor Yellow
+    Write-Host "Será necessário criar o arquivo main.py." -ForegroundColor Yellow
 } else {
     Write-Host "Script do assistente virtual encontrado em $assistentePath" -ForegroundColor Green
 }
 
 Write-Host "`nConfiguração concluída! Para executar o assistente virtual:" -ForegroundColor Cyan
-Write-Host "   python assistente_virtual_deepseek.py" -ForegroundColor White
-Write-Host "   (Com modelo específico: python assistente_virtual_deepseek.py deepseek:1.5b)" -ForegroundColor White
-Write-Host "   (Com modelo e manual: python assistente_virtual_deepseek.py deepseek:1.5b caminho/para/manual.json)" -ForegroundColor White
+Write-Host "   python main.py" -ForegroundColor White
+Write-Host "   (Com modelo específico: python main.py deepseek-coder:6.7b-instruct)" -ForegroundColor White
+Write-Host "   (Com modelo e manual: python main.py deepseek-coder:6.7b-instruct caminho/para/manual.json)" -ForegroundColor White
